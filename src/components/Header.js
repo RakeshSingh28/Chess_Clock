@@ -1,19 +1,41 @@
-import { signOut } from "firebase/auth";
-import React from "react";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../utils/firebase";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser, removeUser } from "../utils/userSlice";
+import { LOGO } from "../utils/constants";
 
 const Header = () => {
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const { uid, email, displayName, photoURL } = user;
+        dispatch(
+          addUser({
+            uid: uid,
+            email: email,
+            displayName: displayName,
+            photoURL: photoURL,
+          })
+        );
+        navigate("/browse");
+      } else {
+        dispatch(removeUser());
+        navigate("/");
+      }
+    });
+    // Unsubscribe when component unmounts
+    return () => {
+      unsubscribe();
+    };
+  }, []);
   return (
     <div className="bg-gradient-to-b from-black absolute w-full z-10 flex justify-between">
-      <img
-        className="w-48 ml-36 mt-1"
-        src="https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
-        alt="netflix-logo"
-      />
+      <img className="w-48 ml-36 mt-1" src={LOGO} alt="netflix-logo" />
       {user && (
         <div className="flex items-center">
           <img
@@ -22,13 +44,11 @@ const Header = () => {
             src={user?.photoURL}
           />
           <button
-            className="mr-4 text-white"
+            className="mx-4 text-white bg-red-600 p-2 rounded-md"
             onClick={() => {
               signOut(auth)
-                .then(() => {
-                  navigate("/");
-                })
-                .catch((error) => {
+                .then(() => {})
+                .catch(() => {
                   navigate("/error");
                 });
             }}

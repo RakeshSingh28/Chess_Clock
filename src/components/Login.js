@@ -7,13 +7,12 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { NETFLIX_BG, USER_AVATAR } from "../utils/constants";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errMssg, setErrMssg] = useState(null);
   const name = useRef(null);
@@ -41,10 +40,7 @@ const Login = () => {
         email.current.value,
         password.current.value
       )
-        .then((userCredential) => {
-          const user = userCredential.user;
-          navigate("/browse");
-        })
+        .then(() => {})
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
@@ -60,7 +56,7 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: name.current.value,
-            photoURL: "https://avatars.githubusercontent.com/u/113418151?v=4",
+            photoURL: USER_AVATAR,
           })
             .then(() => {
               const { uid, email, displayName, photoURL } = auth.currentUser;
@@ -72,7 +68,6 @@ const Login = () => {
                   photoURL: photoURL,
                 })
               );
-              navigate("/browse");
             })
             .catch((error) => {
               setErrMssg(error.message);
@@ -89,9 +84,9 @@ const Login = () => {
     <div>
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="w-[450px] h-[650px] absolute mt-32 right-0 left-0 mx-auto bg-black bg-opacity-80 p-12 px-16 z-10 text-white"
+        className="w-[450px] h-[618px] absolute mt-24 right-0 left-0 mx-auto bg-black bg-opacity-80 p-12 px-16 z-10 text-white"
       >
-        <h1 className="font-bold text-3xl py-4">
+        <h1 className="font-bold text-3xl pb-8">
           {isSignInForm ? "Sign In" : "Sign Up"}
         </h1>
         {!isSignInForm && (
@@ -138,7 +133,7 @@ const Login = () => {
             id="remember-checkbox"
             type="checkbox"
             value=""
-            className="w-4 h-4 bg-gray-100 border-gray-300 rounded focus:ring-white dark:focus:ring-white dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 cursor-pointer"
+            className="w-4 h-4 cursor-pointer"
           />
           <label className="ms-2 text-lg font-thin text-gray-900 dark:text-gray-300">
             Remember me
@@ -156,8 +151,8 @@ const Login = () => {
       </form>
       <Header />
       <img
-        className="brightness-50"
-        src="https://assets.nflxext.com/ffe/siteui/vlv3/03ad76d1-e184-4d99-ae7d-708672fa1ac2/web/IN-en-20241111-TRIFECTA-perspective_149877ab-fcbd-4e4f-a885-8d6174a1ee81_large.jpg"
+        className="brightness-50 w-screen h-screen"
+        src={NETFLIX_BG}
         alt="netflix-bg"
       />
     </div>
