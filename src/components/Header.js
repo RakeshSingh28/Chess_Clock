@@ -5,11 +5,23 @@ import { auth } from "../utils/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
 import { LOGO } from "../utils/constants";
+import { toggleGptSearchView } from "../utils/gptSlice";
+import { LANGUAGES } from "../utils/constants";
+import { changeLanguage } from "../utils/configSlice";
 
 const Header = () => {
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
+  const showGPT = useSelector((store) => store.gpt);
+  const language = useSelector((store) => store.config.lang);
+  const handleGptSearchClick = () => {
+    dispatch(toggleGptSearchView());
+  };
+  const changeGptLanguage = (e) => {
+    dispatch(changeLanguage(e.target.value));
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -38,13 +50,32 @@ const Header = () => {
       <img className="w-48 ml-36 mt-1" src={LOGO} alt="netflix-logo" />
       {user && (
         <div className="flex items-center">
+          {showGPT.showGptSearch && (
+            <select
+              className="p-2 bg-black text-white border-green-100 cursor-pointer"
+              onChange={changeGptLanguage}
+              value={language}
+            >
+              {LANGUAGES.map((lang) => (
+                <option key={lang.id} value={lang.id}>
+                  {lang.name}
+                </option>
+              ))}
+            </select>
+          )}
+          <button
+            onClick={handleGptSearchClick}
+            className="text-white bg-purple-800 p-2 rounded-md mx-4 hover:bg-opacity-80"
+          >
+            {showGPT.showGptSearch ? "Home" : "GPT Search"}
+          </button>
           <img
             alt="photo-url"
-            className="h-11 rounded-2xl mr-2"
+            className="h-11 rounded-2xl"
             src={user?.photoURL}
           />
           <button
-            className="mx-4 text-white bg-red-600 p-2 rounded-md"
+            className="mx-4 text-white bg-red-600 p-2 rounded-md hover:bg-opacity-80"
             onClick={() => {
               signOut(auth)
                 .then(() => {})
