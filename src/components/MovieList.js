@@ -7,9 +7,12 @@ const MovieList = ({ title, moviesData }) => {
       <h1 className="text-2xl py-2 text-white">{title}</h1>
       <div className="flex flex-wrap">
         {moviesData?.length &&
-          moviesData.map((movie) => (
-            <MovieCard movieInfo={movie} key={movie.id} />
-          ))}
+          moviesData.map(
+            (movie) =>
+              movie.poster_path && (
+                <MovieCard movieInfo={movie} key={movie.id} />
+              )
+          )}
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import { auth } from "../utils/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
 import { LOGO } from "../utils/constants";
-import { toggleGptSearchView } from "../utils/gptSlice";
+import { addSearchedMovies, toggleGptSearchView } from "../utils/gptSlice";
 import { LANGUAGES } from "../utils/constants";
 import { changeLanguage } from "../utils/configSlice";
 
@@ -17,6 +17,8 @@ const Header = () => {
   const language = useSelector((store) => store.config.lang);
   const handleGptSearchClick = () => {
     dispatch(toggleGptSearchView());
+    showGPT.showGptSearch &&
+      dispatch(addSearchedMovies({ searchedText: "", movies: [] }));
   };
   const changeGptLanguage = (e) => {
     dispatch(changeLanguage(e.target.value));
@@ -46,13 +48,17 @@ const Header = () => {
     };
   }, []);
   return (
-    <div className="bg-gradient-to-b from-black absolute w-full z-10 flex justify-between">
-      <img className="w-48 ml-36 mt-1" src={LOGO} alt="netflix-logo" />
+    <div className="bg-gradient-to-b from-black absolute w-full z-10 flex flex-col md:flex-row md:justify-between justify-center">
+      <img
+        className="w-48 mt-1 mx-auto md:ml-36"
+        src={LOGO}
+        alt="netflix-logo"
+      />
       {user && (
-        <div className="flex items-center">
+        <div className="flex items-center mx-auto md:mx-0">
           {showGPT.showGptSearch && (
             <select
-              className="p-2 bg-black text-white border-green-100 cursor-pointer"
+              className="p-2 ml-4 bg-black text-white border-green-100 cursor-pointer"
               onChange={changeGptLanguage}
               value={language}
             >
