@@ -48,9 +48,9 @@ const Header = () => {
     };
   }, []);
   return (
-    <div className="bg-gradient-to-b from-black absolute w-full z-10 flex flex-col md:flex-row md:justify-between justify-center">
+    <div className="bg-gradient-to-b from-black fixed w-full z-10 flex flex-col md:flex-row md:justify-between justify-center">
       <img
-        className="w-48 mt-1 mx-auto md:ml-36"
+        className="w-48 mt-1 mx-auto md:ml-12"
         src={LOGO}
         alt="netflix-logo"
       />

@@ -84,7 +84,7 @@ const Login = () => {
     <div>
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="w-[450px] h-[618px] absolute mt-24 right-0 left-0 mx-auto bg-black bg-opacity-80 p-12 px-16 z-10 text-white"
+        className="w-[450px] h-[617px] absolute mt-24 right-0 left-0 mx-auto bg-black bg-opacity-65 p-12 px-16 z-10 text-white"
       >
         <h1 className="font-bold text-3xl pb-8">
           {isSignInForm ? "Sign In" : "Sign Up"}
@@ -151,7 +151,7 @@ const Login = () => {
       </form>
       <Header />
       <img
-        className="brightness-50 w-screen h-screen"
+        className="brightness-50 w-screen h-screen fixed"
         src={NETFLIX_BG}
         alt="netflix-bg"
       />
