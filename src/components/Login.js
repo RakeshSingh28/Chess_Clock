@@ -86,7 +86,7 @@ const Login = () => {
         onSubmit={(e) => e.preventDefault()}
         className="w-[450px] h-[617px] absolute mt-24 right-0 left-0 mx-auto bg-black bg-opacity-65 p-12 px-16 z-10 text-white"
       >
-        <h1 className="font-bold text-3xl pb-8">
+        <h1 className="font-semibold text-3xl pb-8">
           {isSignInForm ? "Sign In" : "Sign Up"}
         </h1>
         {!isSignInForm && (
@@ -94,7 +94,7 @@ const Login = () => {
             ref={name}
             type="text"
             placeholder="Full Name"
-            className="p-3 w-full mb-4 bg-gray-950 rounded-md"
+            className="p-4 w-full mb-4 bg-gray-950 rounded-md bg-transparent"
             style={{ border: "1px solid white" }}
           ></input>
         )}
@@ -102,14 +102,14 @@ const Login = () => {
           ref={email}
           type="text"
           placeholder="Email ID"
-          className="p-3 w-full mb-4 bg-gray-950 rounded-md"
+          className="p-4 w-full mb-4 bg-gray-950 rounded-md bg-transparent"
           style={{ border: "1px solid white" }}
         ></input>
         <input
           ref={password}
           type="password"
           placeholder="Password"
-          className="p-3 w-full mb-4 bg-gray-950 rounded-md"
+          className="p-4 w-full mb-4 bg-gray-950 rounded-md bg-transparent"
           style={{ border: "1px solid white" }}
         ></input>
         <button
