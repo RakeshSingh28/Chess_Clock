@@ -8,7 +8,7 @@ const Game = () => {
         <div className="text-4xl m-1 cursor-pointer">✖</div>
       </div>
       <div className="w-56 h-56 bg-gray-500 rounded-2xl m-4 mb-2 cursor-pointer">
-        <div className="flex h-56 justify-center items-center text-3xl font-bold text-black">
+        <div className="flex h-56 justify-center items-center text-3xl font-bold text-white">
           10:00
         </div>
       </div>

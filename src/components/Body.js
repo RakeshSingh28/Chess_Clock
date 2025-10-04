@@ -24,7 +24,15 @@ const Body = () => {
     setSecondPlayerSecond(Number(event.target.value));
   };
   const changeToNotice = () => {
-    navigate("/notice");
+    navigate("/notice", {
+      state: {
+        player1Time: firstPlayerTime,
+        player2Time: secondPlayerTime,
+        p1Sec: firstPlayerSecond,
+        p2Sec: secondPlayerSecond,
+        isDifferent: isDifferent,
+      },
+    });
   };
   return (
     <div className="text-center text-white">

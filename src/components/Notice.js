@@ -1,9 +1,12 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Notice = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const changeToGame = () => {
-    navigate("/game");
+    navigate("/game", {
+      state: { ...location.state },
+    });
   };
   const changeToHome = () => {
     navigate("/");
