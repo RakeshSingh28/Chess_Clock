@@ -15,8 +15,7 @@ const Notice = () => {
     <div className="text-white text-center">
       <div className="font-serif text-5xl p-4">Before Starting...</div>
       <p className="text-lg my-2">
-        Player having blacks has to click to its opponent clock to start the
-        game.
+        Player having blacks has to click on play button to start the game.
       </p>
       <p className="text-lg mt-2 mb-4">
         You have to touch your own clock to switch clock to your opponent.
